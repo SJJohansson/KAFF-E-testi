@@ -14,7 +14,7 @@ const char full = 'F'; // 100% teho
 const char half = 'H'; // 50% teho
 const char kaksviis = 'T'; //~25% teho
 int spd = 0;
-char dir = O;
+char dir = 'O';
 
 void setup() {
   Serial.begin(9600);
@@ -81,9 +81,10 @@ void move() {
       motorStop('A');
       motorStop('B');
       break;
+  }
   digitalWrite(PWM1,spd);
   digitalWrite(PWM2,spd);
-  }
+  printf("Liikutaan, suunta on %d ja nopeus %s",dir,spd);
 }
 
 void loop() {
@@ -92,25 +93,37 @@ void loop() {
     switch (command) {
       case forward: 
         dir = forward;
+        Serial.println("Suunta on eteen");
         break;
       case back: 
         dir = back;
+        Serial.println("Suunta on taakse");
         break;
       case left:
         dir = left;
+        Serial.println("Suunta on vasen");
         break;
       case right:
         dir = right;
+        Serial.println("Suunta on oikea");
         break;
       case off:
         dir = off;
         spd = 0;
+        printf("Nopeus on nyt %d",spd);
+        break;
       case full:
         spd = 255;
+        printf("Nopeus on nyt %d",spd);
+        break;
       case half:
         spd = 127;
+        printf("Nopeus on nyt %d",spd);
+        break;
       case kaksviis:
         spd = 63;
+        printf("Nopeus on nyt %d",spd);
+        break;
     }
   move();
   }
