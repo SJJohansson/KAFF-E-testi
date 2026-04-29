@@ -93,38 +93,38 @@ void loop() {
     switch (command) {
       case forward: 
         dir = forward;
-        Serial.println("Suunta on eteen");
+        Serial.print(dir);
         break;
       case back: 
         dir = back;
-        Serial.println("Suunta on taakse");
+        Serial.print(dir);
         break;
       case left:
         dir = left;
-        Serial.println("Suunta on vasen");
+        Serial.print(dir);
         break;
       case right:
         dir = right;
-        Serial.println("Suunta on oikea");
+        Serial.print(dir);
         break;
       case off:
         dir = off;
         spd = 0;
-        printf("Nopeus on nyt %d",spd);
+        Serial.print(spd);
         break;
       case full:
         spd = 255;
-        printf("Nopeus on nyt %d",spd);
+        Serial.print(spd);
         break;
       case half:
         spd = 127;
-        printf("Nopeus on nyt %d",spd);
+        Serial.print(spd);
         break;
       case kaksviis:
         spd = 63;
-        printf("Nopeus on nyt %d",spd);
+        Serial.print(spd);
         break;
     }
-  move();
   }
+  move();
 }
