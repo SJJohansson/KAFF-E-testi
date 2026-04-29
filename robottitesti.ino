@@ -14,6 +14,7 @@ const char full = 'F'; // 100% teho
 const char half = 'H'; // 50% teho
 const char kaksviis = 'T'; //~25% teho
 int spd = 0;
+char dir = O;
 
 void setup() {
   Serial.begin(9600);
@@ -51,13 +52,38 @@ void motorStop(char motor) {
   if (motor == 'A') {
       digitalWrite(AIN1,LOW);
       digitalWrite(AIN2,LOW);
-      analogWrite(PWM1,0);
     }
     else if (motor == 'B') {
       digitalWrite(BIN1,LOW);
       digitalWrite(BIN2,LOW);
-      analogWrite(PWM2,LOW);
     }
+}
+
+void move() {
+  switch (dir) {
+    case forward:
+      motorClockwise('A');
+      motorClockwise('B');
+      break;
+    case back:
+      motorCClockwise('A');
+      motorCClockwise('B');
+      break;
+    case left:
+      motorCClockwise('A');
+      motorClockwise('B');
+      break;
+    case right:
+      motorClockwise('A');
+      motorCClockwise('B');
+      break;
+    case off:
+      motorStop('A');
+      motorStop('B');
+      break;
+  digitalWrite(PWM1,spd);
+  digitalWrite(PWM2,spd);
+  }
 }
 
 void loop() {
@@ -65,43 +91,27 @@ void loop() {
     char command = Serial.read();
     switch (command) {
       case forward: 
-        motorClockwise('A');
-        motorClockwise('B');
-        analogWrite(PWM1,spd);
-        analogWrite(PWM2,spd);
+        dir = forward;
         break;
       case back: 
-        motorCClockwise('A');
-        motorCClockwise('B');
-        analogWrite(PWM1,spd);
-        analogWrite(PWM2,spd);
+        dir = back;
         break;
       case left:
-        motorCClockwise('A');
-        motorClockwise('B');
-        analogWrite(PWM1,spd);
-        analogWrite(PWM2,spd);
+        dir = left;
         break;
       case right:
-        motorClockwise('A');
-        motorCClockwise('B');
-        analogWrite(PWM1,spd);
-        analogWrite(PWM2,spd);
+        dir = right;
         break;
       case off:
-        motorStop('A');
-        motorStop('B');
-        break;
+        dir = off;
+        spd = 0;
       case full:
         spd = 255;
       case half:
         spd = 127;
       case kaksviis:
         spd = 63;
-      default:
-        motorStop('A');
-        motorStop('B');
-        break;
     }
+  move();
   }
 }
