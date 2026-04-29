@@ -13,6 +13,7 @@ const char off = 'O'; // täysin pois päältä ja poistaa myös valitun suunnan
 const char full = 'F'; // 100% teho
 const char half = 'H'; // 50% teho
 const char kaksviis = 'T'; //~25% teho
+int spd = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -66,32 +67,37 @@ void loop() {
       case forward: 
         motorClockwise('A');
         motorClockwise('B');
+        analogWrite(PWM1,spd);
+        analogWrite(PWM2,spd);
         break;
       case back: 
         motorCClockwise('A');
         motorCClockwise('B');
+        analogWrite(PWM1,spd);
+        analogWrite(PWM2,spd);
         break;
       case left:
         motorCClockwise('A');
         motorClockwise('B');
+        analogWrite(PWM1,spd);
+        analogWrite(PWM2,spd);
         break;
       case right:
         motorClockwise('A');
         motorCClockwise('B');
+        analogWrite(PWM1,spd);
+        analogWrite(PWM2,spd);
         break;
       case off:
         motorStop('A');
         motorStop('B');
         break;
       case full:
-        analogWrite(PWM1,255);
-        analogWrite(PWM2,255);
+        spd = 255;
       case half:
-        analogWrite(PWM1,127);
-        analogWrite(PWM2,127);
+        spd = 127;
       case kaksviis:
-        analogWrite(PWM1,60);
-        analogWrite(PWM2,60);
+        spd = 63;
       default:
         motorStop('A');
         motorStop('B');
